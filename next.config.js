@@ -6,7 +6,9 @@ module.exports = withPWA({
   pwa: {
     dest: 'public',
     runtimeCaching,
-    buildExcludes: [/middleware-manifest.json$/]
+    buildExcludes: [/middleware-manifest.json$/],
+    register: false,
+    skipWaiting: false
   },
   reactStrictMode: true,
 })
