@@ -9,6 +9,7 @@ const Home: NextPage = () => {
     if (typeof window !== 'undefined' && 'serviceWorker' in navigator && window.workbox !== undefined) {
       const wb = window.workbox
       const promptNewVersionAvailable = () => {
+        console.log('----- waiting')
         // `event.wasWaitingBeforeRegister` will be false if this is the first time the updated service worker is waiting.
         // When `event.wasWaitingBeforeRegister` is true, a previously updated service worker is still waiting.
         // You may want to customize the UI prompt accordingly.
@@ -25,7 +26,9 @@ const Home: NextPage = () => {
           )
         }
       }
-
+      wb.addEventListener('activated', (evnet: any) => {
+        console.log('----- activated', event)
+      })
       wb.addEventListener('waiting', promptNewVersionAvailable)
       wb.register()
     }
