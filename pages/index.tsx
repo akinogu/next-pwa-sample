@@ -1,47 +1,9 @@
-import { useEffect } from 'react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
 import styles from '../styles/Home.module.css'
 
 const Home: NextPage = () => {
-  useEffect(() => {
-    if (typeof window !== 'undefined' && 'serviceWorker' in navigator && window.workbox !== undefined) {
-      const wb = window.workbox
-      const promptNewVersionAvailable = () => {
-        console.log('----- waiting')
-        // `event.wasWaitingBeforeRegister` will be false if this is the first time the updated service worker is waiting.
-        // When `event.wasWaitingBeforeRegister` is true, a previously updated service worker is still waiting.
-        // You may want to customize the UI prompt accordingly.
-        if (confirm('新しいバージョンが利用できます。リロードしますか？')) {
-          wb.addEventListener('controlling', () => {
-            window.location.reload()
-          })
-
-          // Send a message to the waiting service worker, instructing it to activate.
-          wb.messageSkipWaiting()
-        } else {
-          console.log(
-            'User rejected to reload the web app, keep using old version. New version will be automatically load when user open the app next time.'
-          )
-        }
-      }
-      wb.addEventListener('installed', (evnet: any) => {
-        console.log('----- installed', event)
-      })
-
-      wb.addEventListener('activated', (evnet: any) => {
-        console.log('----- activated', event)
-      })
-      wb.addEventListener('message', (event: any) => {
-        console.log(`Event ${event.type} is triggered.`)
-        console.log(event)
-      })
-      wb.addEventListener('waiting', promptNewVersionAvailable)
-      // register falseにしないと？
-      wb.register()
-    }
-  }, [])
   return (
     <div className={styles.container}>
       <Head>
@@ -52,7 +14,7 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Top ver.13
+          Top ver.14
         </h1>
         <div className={styles.linkWrap}>
           <Link href='/main'>Mainへ</Link>
