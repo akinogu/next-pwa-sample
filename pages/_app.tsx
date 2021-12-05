@@ -7,16 +7,19 @@ function MyApp({ Component, pageProps }: AppProps) {
     if (typeof window !== 'undefined' && 'serviceWorker' in navigator && window.workbox !== undefined) {
       const wb = window.workbox
 
-      navigator.serviceWorker.ready.then(async reg => {
-        const registration = await navigator.serviceWorker.getRegistration();
-        // (it is also returned from navigator.serviceWorker.register() function)
+      // navigator.serviceWorker.ready.then(async reg => {
+      //   const registration = await navigator.serviceWorker.getRegistration();
+      //   // (it is also returned from navigator.serviceWorker.register() function)
 
-        if (registration) { // if there is a SW active
-            registration.addEventListener('updatefound', () => {
-                console.log('Service Worker update detected!');
-            });
-        }
-        // setRegistration(reg)
+      //   if (registration) { // if there is a SW active
+      //       registration.addEventListener('updatefound', () => {
+      //           console.log('Service Worker update detected!');
+      //       });
+      //   }
+      //   // setRegistration(reg)
+      // })
+      window.addEventListener('hashchange', () => {
+        console.log('------ hash changed')
       })
 
       const promptNewVersionAvailable = () => {
