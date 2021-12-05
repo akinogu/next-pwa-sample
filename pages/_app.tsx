@@ -6,6 +6,19 @@ function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
     if (typeof window !== 'undefined' && 'serviceWorker' in navigator && window.workbox !== undefined) {
       const wb = window.workbox
+
+      navigator.serviceWorker.ready.then(async reg => {
+        const registration = await navigator.serviceWorker.getRegistration();
+        // (it is also returned from navigator.serviceWorker.register() function)
+
+        if (registration) { // if there is a SW active
+            registration.addEventListener('updatefound', () => {
+                console.log('Service Worker update detected!');
+            });
+        }
+        // setRegistration(reg)
+      })
+
       const promptNewVersionAvailable = () => {
         console.log('----- waiting')
         // `event.wasWaitingBeforeRegister` will be false if this is the first time the updated service worker is waiting.
