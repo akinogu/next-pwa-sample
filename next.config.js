@@ -85,17 +85,6 @@ module.exports = withPWA({
         }
       },
       {
-        urlPattern: /\.(?:js)$/i,
-        handler: 'NetworkFirst',
-        options: {
-          cacheName: 'static-js-assets',
-          expiration: {
-            maxEntries: 32,
-            maxAgeSeconds: 24 * 60 * 60 // 24 hours
-          }
-        }
-      },
-      {
         urlPattern: /\.(?:css|less)$/i,
         handler: 'StaleWhileRevalidate',
         options: {
