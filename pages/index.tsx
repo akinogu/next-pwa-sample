@@ -43,7 +43,7 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Top ver.7
+          Top ver.8
         </h1>
         <div className={styles.linkWrap}>
           <Link href='/main'>Mainへ</Link>
