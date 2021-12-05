@@ -33,6 +33,10 @@ const Home: NextPage = () => {
       wb.addEventListener('activated', (evnet: any) => {
         console.log('----- activated', event)
       })
+      wb.addEventListener('message', (event: any) => {
+        console.log(`Event ${event.type} is triggered.`)
+        console.log(event)
+      })
       wb.addEventListener('waiting', promptNewVersionAvailable)
       // register falseにしないと？
       wb.register()
@@ -48,7 +52,7 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Top ver.12
+          Top ver.13
         </h1>
         <div className={styles.linkWrap}>
           <Link href='/main'>Mainへ</Link>
