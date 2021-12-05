@@ -26,10 +26,15 @@ const Home: NextPage = () => {
           )
         }
       }
+      wb.addEventListener('installed', (evnet: any) => {
+        console.log('----- installed', event)
+      })
+
       wb.addEventListener('activated', (evnet: any) => {
         console.log('----- activated', event)
       })
       wb.addEventListener('waiting', promptNewVersionAvailable)
+      // register falseにしないと？
       wb.register()
     }
   }, [])
@@ -43,7 +48,7 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Top ver.8
+          Top ver.9
         </h1>
         <div className={styles.linkWrap}>
           <Link href='/main'>Mainへ</Link>
