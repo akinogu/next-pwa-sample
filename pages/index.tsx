@@ -14,7 +14,7 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Top ver.23
+          Top 2021/12/07
         </h1>
         <div className={styles.linkWrap}>
           <Link href='/main'>Mainへ</Link>
