@@ -4,6 +4,7 @@ import Link from 'next/link'
 import styles from '../styles/Home.module.css'
 
 const Home: NextPage = () => {
+  const current = new Date().toString()
   return (
     <div className={styles.container}>
       <Head>
@@ -14,8 +15,9 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Top 2021/12/07_003
+          Top 2021/12/14
         </h1>
+        <div>{current}</div>
         <div className={styles.linkWrap}>
           <Link href='/main'>Mainへ</Link>
           <Link href='/sub'>Subへ</Link>
