@@ -1,19 +1,12 @@
 import type { NextPage } from 'next'
-import { useEffect, useState } from 'react'
+import Link from 'next/link'
 import Head from 'next/head'
+import { useReadContext } from '../../src/components/ReadContext'
 import styles from '../../styles/Home.module.css'
-import { get, add } from '../../src/hooks/useLocalStorage'
 
 const key = 'page history'
-const Sub: NextPage = () => {
-  const [, setHistories] = useState<string[]>([])
-  useEffect(() => {
-    const history = get(key)
-    const newData = history instanceof Array ? history : [history]
-    add(key, JSON.stringify([...newData, 'sub']))
-    setHistories(newData)
-  }, [])
-
+const Result: NextPage = () => {
+  const { result } = useReadContext()
   return (
     <div className={styles.container}>
       <Head>
@@ -23,11 +16,13 @@ const Sub: NextPage = () => {
       </Head>
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Sub
+          RESULT
         </h1>
+        <div>{result}</div>
+        <Link href='read'>戻る</Link>
       </main>
     </div>
   )
 }
 
-export default Sub
+export default Result

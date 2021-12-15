@@ -19,8 +19,7 @@ const Home: NextPage = () => {
         </h1>
         <div>{current}</div>
         <div className={styles.linkWrap}>
-          <Link href='/main'>Mainへ</Link>
-          <Link href='/sub'>Subへ</Link>
+          <Link href='/read'>画像読み取りへ</Link>
         </div>
       </main>
     </div>
