@@ -38,6 +38,8 @@ const Read: NextPage = () => {
     const video = videoRef.current
     if (!canvas || !video) return
     const ctx = canvas.getContext('2d')
+    canvas.height = video.videoHeight
+    canvas.width = video.videoWidth
     ctx?.drawImage(video, 0, 0, canvas.width, canvas.height)
     const imageData = ctx?.getImageData(0, 0, canvas.width, canvas.height)
     if (!imageData) return
