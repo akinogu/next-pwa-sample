@@ -6,13 +6,38 @@ import Head from 'next/head'
 import { useReadContext } from '../../src/components/ReadContext'
 import styles from '../../styles/Home.module.css'
 
+const generateByJsQr = (image: ImageData, width: number, height: number) => {
+  const code = jsQR(image.data, width, height)
+  if (!code) {
+    return null
+  }
+  return code.data
+}
+
+const generateByBarcodeDetection = async (video: HTMLVideoElement) => {
+  console.log('========= read')
+  const formats = await window.BarcodeDetector.getSupportedFormats();
+
+  if(!formats.includes('qr_code')) {
+    throw new Error('QRコードがサポートされていません…');
+  }
+  console.log('-- has barcode reader')
+  const detector = new window.BarcodeDetector({
+    formats: ['qr_code']
+  });
+  const codes = await detector.detect(video)
+  if (!codes || codes.length === 0) {
+    return null
+  }
+  return codes[0].rawValue
+}
 const Read: NextPage = () => {
   const router = useRouter()
   const { updateResult } = useReadContext()
   const videoRef =  useRef<HTMLVideoElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [stream, setStream] = useState<MediaStream | null>(null)
-
+  const [libType, setLibType] = useState('jsQr')
   const onClick = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia(
@@ -33,7 +58,7 @@ const Read: NextPage = () => {
       console.log('=== ERROR', e)
     }
   }
-  const checkQr = () => {
+  const checkQr = async () => {
     const canvas = canvasRef.current
     const video = videoRef.current
     if (!canvas || !video) return
@@ -43,10 +68,12 @@ const Read: NextPage = () => {
     ctx?.drawImage(video, 0, 0, canvas.width, canvas.height)
     const imageData = ctx?.getImageData(0, 0, canvas.width, canvas.height)
     if (!imageData) return
-    const code = jsQR(imageData.data, canvas.width, canvas.height)
+    const code = libType === 'jsQr'
+      ? generateByJsQr(imageData, canvas.width, canvas.height)
+      : await generateByBarcodeDetection(video)
 
     if (code) {
-      updateResult(code?.data ?? '')
+      updateResult(code)
       router.push('/result')
     } else {
       setTimeout( () => {
@@ -70,6 +97,14 @@ const Read: NextPage = () => {
         <h1 className={styles.title}>
           QR
         </h1>
+        <label>
+          jsQR
+          <input type='radio' name='type' value='jsQr' checked={libType === 'jsQr'} onChange={e => setLibType(e.target.value)} />
+        </label>
+        <label>
+          Barcode Detection
+          <input type='radio' name='type' value='barcodeDetection' checked={libType === 'barcodeDetection'} onChange={e => setLibType(e.target.value)} />
+        </label>
         <button onClick={() => onClick()}>カメラを起動</button>
         <video className={styles.video}  ref={videoRef}></video>
         <canvas className={styles.canvas} ref={canvasRef} />
