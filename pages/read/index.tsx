@@ -15,13 +15,11 @@ const generateByJsQr = (image: ImageData, width: number, height: number) => {
 }
 
 const generateByBarcodeDetection = async (video: HTMLVideoElement) => {
-  console.log('========= read')
   const formats = await window.BarcodeDetector.getSupportedFormats();
 
   if(!formats.includes('qr_code')) {
     throw new Error('QRコードがサポートされていません…');
   }
-  console.log('-- has barcode reader')
   const detector = new window.BarcodeDetector({
     formats: ['qr_code']
   });
