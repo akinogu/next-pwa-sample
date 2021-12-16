@@ -36,6 +36,7 @@ const Read: NextPage = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [stream, setStream] = useState<MediaStream | null>(null)
   const [libType, setLibType] = useState('jsQr')
+  const [error, setError] = useState('')
   const onClick = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia(
@@ -54,6 +55,10 @@ const Read: NextPage = () => {
       }
     } catch (e) {
       console.log('=== ERROR', e)
+      if (e instanceof Error) {
+        setError(e.message)
+      }
+      stream?.getVideoTracks().forEach(t => t.stop())
     }
   }
   const checkQr = async () => {
@@ -95,6 +100,7 @@ const Read: NextPage = () => {
         <h1 className={styles.title}>
           QR
         </h1>
+        <p>{error}</p>
         <label>
           jsQR
           <input type='radio' name='type' value='jsQr' checked={libType === 'jsQr'} onChange={e => setLibType(e.target.value)} />
