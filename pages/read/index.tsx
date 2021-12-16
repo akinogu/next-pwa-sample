@@ -81,7 +81,7 @@ const Read: NextPage = () => {
     } else {
       setTimeout( () => {
         checkQr()
-      }, 1000)
+      }, 100)
     }
   }
   useEffect(() => {
