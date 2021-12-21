@@ -22,7 +22,8 @@ const HtmlQr: NextPage = () => {
         cameraId,
         {
           fps: 10, // scanning would be done every 100ms
-          qrbox: { width: 250, height: 250 }
+          qrbox: { width: 250, height: 250 },
+          disableFlip: false
         },
         (decodedText) => {
           html5QrCode.stop()
