@@ -20,7 +20,7 @@ const Home: NextPage = () => {
         <div>{current}</div>
         <div className={styles.linkWrap}>
           <Link href='/read'>画像読み取りへ</Link>
-          <Link href='/read/htmlqr'>HTML5-qrcodeで読み取りへ</Link>
+          {/* <Link href='/read/htmlqr'>HTML5-qrcodeで読み取りへ</Link> */}
         </div>
       </main>
     </div>
