@@ -8,6 +8,7 @@ import { Html5Qrcode } from 'html5-qrcode'
 
 const HtmlQr: NextPage = () => {
   const router = useRouter()
+  const [html5QrCode, setHtml5QrCode] = useState<Html5Qrcode | null>(null)
   const { updateResult } = useReadContext()
   const [error, setError] = useState('')
   const onClick = async () => {
@@ -16,17 +17,17 @@ const HtmlQr: NextPage = () => {
       if (!devices || devices.length < 1) {
         return
       }
-      const cameraId = devices[0].id
-      const html5QrCode = new Html5Qrcode('reader')
-      html5QrCode.start(
-        cameraId,
+      // const cameraId = devices[0].id
+      const qrCode = new Html5Qrcode('reader')
+      setHtml5QrCode(html5QrCode)
+      qrCode.start(
+        { facingMode: 'environment' },
         {
           fps: 10, // scanning would be done every 100ms
           qrbox: { width: 250, height: 250 },
           disableFlip: false
         },
         (decodedText) => {
-          html5QrCode.stop()
           updateResult(decodedText)
           router.push('/result')
         },
