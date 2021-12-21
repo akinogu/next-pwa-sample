@@ -2671,6 +2671,11 @@ hmac-drbg@^1.0.1:
     minimalistic-assert "^1.0.0"
     minimalistic-crypto-utils "^1.0.1"
 
+html5-qrcode@^2.1.5:
+  version "2.1.5"
+  resolved "https://registry.yarnpkg.com/html5-qrcode/-/html5-qrcode-2.1.5.tgz#0c5220d7e3b8f9b13d1097fb3b58c8f460cf14c7"
+  integrity sha512-3cOA0lPIcKtMd7Sz9BZm5ERAokv5uj35zT3o59LMVF6wLesYJ4WZaD28Z0OPnsfxe4dHGFgZ3RZ1si8f2AfOGw==
+
 http-errors@1.7.3:
   version "1.7.3"
   resolved "https://registry.yarnpkg.com/http-errors/-/http-errors-1.7.3.tgz#6c619e4f9c60308c38519498c14fbb10aacebb06"
